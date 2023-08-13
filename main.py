@@ -4,16 +4,12 @@ from tkinter.font import Font
 from calculations import calculate
 
 class calculation_units:
-    def __init__(self, num1, num2, operator, answer = None):
+    def __init__(self, num1, num2, operator, answer):
         self.num1 = num1
         self.num2 = num2
         self.operator = operator
         self.equals = "="
         self.answer = answer
-
-    def define(self, num1, num2, operator):
-        print(num1, num2, operator)
-        return
 
     def num_pressed(self, number_added):
         self.num2.append(number_added)
@@ -28,7 +24,6 @@ operators = ("-", "+", "%", "x")
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 root.rowconfigure(1, weight=5)
-
 
 button_symbols = ["ce", " ", " ", "%", 7, 8, 9, "x", 4, 5, 6, "-", 1, 2, 3, "+", "+/-", 0, ".", "="]
 main_font = Font(family="Helvetica", size=32)
@@ -107,13 +102,10 @@ def clicked_button(event):
     }
 
     character = button_translator[event.widget._name]
-    print(character)
     try:
         int(character)
         '''only numbers work within here'''
         calc.num_pressed(character)
-        print(calc.num2)
-        print("number")
 
     except ValueError:
         '''any other button'''
@@ -127,21 +119,16 @@ def clicked_button(event):
             calc.operator = character
             calc.num1 = "".join(str(val) for val in calc.num2)
             calc.num2.clear()
-            print(calc.num1)
-            print(calc.num2)
 
         if character == "=":
             calc.num2 = "".join(str(val) for val in calc.num2)
-            print(calc.num1, calc.num2, calc.operator)
             calc.answer = calculate(calc.num1, calc.num2, calc.operator)
-            print(calc.answer)
 
     results()
 
+calc = calculation_units([], [], "", 0) #init class
 
-calc = calculation_units([], [], "", 0)
-
+# vv Main Program vv
 calc_buttons()
 results()
-
 root.mainloop()
