@@ -109,6 +109,18 @@ def clicked_button(event):
 
     except ValueError:
         '''any other button'''
+        if character == ".":
+            calc.num_pressed(character)
+
+        if character == "+/-":
+            if len(calc.num2) > 0:
+                if calc.num2[0] == "-":
+                    calc.num2.pop(0)
+                else:
+                    calc.num2.insert(0, "-")
+            else:
+                calc.num_pressed("-")
+
         if character == "CE":
             calc.num1 = []
             calc.num2 = []
